@@ -18,10 +18,9 @@ export const getAssertion = async (
   ): Promise<Fido2AuthenticatorGetAssertionResult> => {
     
     try {
-      const selectedCipher = creds;
+      const selectedFido2Credential = creds;
 
       try {
-        const selectedFido2Credential = selectedCipher.login.fido2Credentials[0];
         const selectedCredentialId = selectedFido2Credential.credentialId;
 
         const authenticatorData = await generateAuthData({
