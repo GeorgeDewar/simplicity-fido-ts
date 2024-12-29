@@ -26,7 +26,6 @@ export const getAssertion = async (
       const authenticatorData = await generateAuthData({
         rpId: selectedFido2Credential.rpId,
         credentialId: parseCredentialId(selectedCredentialId)!,
-        counter: 0,
         userPresence: true,
         userVerification: true,
       });
@@ -81,7 +80,6 @@ interface AuthDataParams {
   credentialId: BufferSource;
   userPresence: boolean;
   userVerification: boolean;
-  counter: number;
 }
 
 async function generateAuthData(params: AuthDataParams) {
@@ -105,15 +103,8 @@ async function generateAuthData(params: AuthDataParams) {
   });
   authData.push(flags);
 
-  // add 4 bytes of counter - we use time in epoch seconds as monotonic counter
-  // TODO: Consider changing this to a cryptographically safe random number
-  const counter = params.counter;
-  authData.push(
-    ((counter & 0xff000000) >> 24) & 0xff,
-    ((counter & 0x00ff0000) >> 16) & 0xff,
-    ((counter & 0x0000ff00) >> 8) & 0xff,
-    counter & 0x000000ff,
-  );
+  // add 4 bytes of counter - always zero as we don't support a counter
+  authData.push(0, 0, 0, 0);
 
   return new Uint8Array(authData);
 }
