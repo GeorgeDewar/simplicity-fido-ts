@@ -3,11 +3,11 @@ import { getPasskeyJwt } from "./passkey/main";
 import { cognitoLogin } from "./cognito/main";
 
 const simplicityLogin = async () => {
-    const deviceId = uuidv4();
-    const passkeyResult = await getPasskeyJwt(deviceId);
-    
-    //const cognitoResult = await cognitoLogin(deviceId);
-    //console.log(cognitoResult);
-}
+  const deviceId = uuidv4();
+  //const passkeyResult = await getPasskeyJwt(deviceId);
+
+  const cognitoResult = await cognitoLogin(deviceId);
+  console.log(cognitoResult);
+};
 
 simplicityLogin();
