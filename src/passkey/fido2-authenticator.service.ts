@@ -26,7 +26,7 @@ export const getAssertion = async (
       const authenticatorData = await generateAuthData({
         rpId: selectedFido2Credential.rpId,
         credentialId: parseCredentialId(selectedCredentialId)!,
-        counter: selectedFido2Credential.counter,
+        counter: 0,
         userPresence: true,
         userVerification: true,
       });

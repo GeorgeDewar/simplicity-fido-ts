@@ -7,7 +7,6 @@ export type Fido2Credential = {
   rpId: "simplicity.kiwi";
   userHandle: string;
   userName: string;
-  counter: 0;
   rpName: string;
   userDisplayName: string;
   discoverable: "true" | "false";
