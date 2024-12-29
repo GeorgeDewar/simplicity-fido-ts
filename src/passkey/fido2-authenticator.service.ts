@@ -1,5 +1,5 @@
 import { parseCredentialId } from "./credential-id-utils";
-import { creds } from "./creds";
+import { creds } from "../creds";
 import { p1363ToDer } from "./ecdsa-utils";
 import { Fido2Utils } from "./fido2-utils";
 import { Fido2AuthenticatorError, Fido2AuthenticatorErrorCode, Fido2AuthenticatorGetAssertionParams, Fido2AuthenticatorGetAssertionResult, Fido2Credential } from "./types";
@@ -18,18 +18,6 @@ export const getAssertion = async (
   ): Promise<Fido2AuthenticatorGetAssertionResult> => {
     
     try {
-      if (
-        params.requireUserVerification != undefined &&
-        typeof params.requireUserVerification !== "boolean"
-      ) {
-        logger.error(
-          `[Fido2Authenticator] Invalid 'requireUserVerification' value: ${String(
-            params.requireUserVerification,
-          )}`,
-        );
-        throw new Fido2AuthenticatorError(Fido2AuthenticatorErrorCode.Unknown);
-      }
-
       const selectedCipher = creds;
 
       try {

@@ -67,3 +67,11 @@ export type Fido2Credential = {
     creationDate: string;
 }
 
+export type PasskeyAuthResult = {
+    isVerified: boolean;
+    accessToken: string;
+    userId: string;
+    userAuthenticatorId: string;
+    username: string;
+    userDisplayName: string;
+}
