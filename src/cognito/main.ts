@@ -10,6 +10,7 @@ const initiateAuth = async (deviceId: string, username: string) => {
     headers: {
       "Content-Type": "application/x-amz-json-1.1",
       "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth",
+      "X-Amz-User-Agent": "aws-amplify/6.4.2 auth/4 framework/1",
     },
     body: JSON.stringify({
       AuthFlow: "CUSTOM_AUTH",
@@ -63,6 +64,10 @@ const respondToChallenge = async (
 };
 
 export const cognitoLogin = async (deviceId: string) => {
+  // Get a Passkey
+  const passkeyResult = await getPasskeyJwt(deviceId);
+
+  // Get the Cogito custom challenge
   const username = creds.userName; // email
   const response = await initiateAuth(deviceId, username);
   let session: string = response.Session;
@@ -84,7 +89,7 @@ export const cognitoLogin = async (deviceId: string) => {
      */
 
   // Respond to challenge with JWT from Passkey authentication
-  const passkeyResult = await getPasskeyJwt(deviceId);
+
   const respondToChallengeResult = await respondToChallenge(
     username,
     session,
