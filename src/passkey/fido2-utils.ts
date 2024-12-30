@@ -25,10 +25,6 @@ export class Fido2Utils {
     return bufferSource instanceof ArrayBuffer || bufferSource.buffer === undefined;
   }
 
-  static fromB64toUrlB64(b64Str: string) {
-    return b64Str.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
-  }
-
   static fromBufferToB64(buffer: ArrayBuffer): string | null {
     if (buffer == null) {
       return null;
@@ -71,10 +67,6 @@ export class Fido2Utils {
     }
 
     return output;
-  }
-
-  static fromUrlB64ToArray(str: string): Uint8Array {
-    return Fido2Utils.fromB64ToArray(Fido2Utils.fromUrlB64ToB64(str))!;
   }
 
   static fromByteStringToArray(str: string): Uint8Array | null {
