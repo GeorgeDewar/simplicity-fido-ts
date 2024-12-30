@@ -35,7 +35,7 @@ const getChallengeId = async (tenantId: string): Promise<string> => {
 
 const getAuthenticationOptions = async (
   tenantId: string,
-  challengeId: string
+  challengeId: string,
 ): Promise<GetAuthenticationOptionsResponse> => {
   const response = await fetch(
     `${baseUrl}/client/user-authenticators/passkey/authentication-options`,
@@ -47,7 +47,7 @@ const getAuthenticationOptions = async (
       body: JSON.stringify({
         challengeId,
       }),
-    }
+    },
   );
   console.log(`Status: ${response.status}`);
   if (response.status !== 200) {
@@ -61,7 +61,7 @@ const presentPasskey = async (
   tenantId: string,
   challengeId: string,
   assertion: AssertCredentialResult,
-  deviceId: string
+  deviceId: string,
 ): Promise<PasskeyAuthResult> => {
   const response = await fetch(`${baseUrl}/client/verify/passkey`, {
     method: "POST",
@@ -94,13 +94,15 @@ const presentPasskey = async (
   return json;
 };
 
-export const getPasskeyJwt = async (deviceId: string): Promise<PasskeyAuthResult> => {
+export const getPasskeyJwt = async (
+  deviceId: string,
+): Promise<PasskeyAuthResult> => {
   const challengeId = await getChallengeId(simplicityTenantId);
   console.log(challengeId);
 
   const authenticationOptions = await getAuthenticationOptions(
     simplicityTenantId,
-    challengeId
+    challengeId,
   );
   console.log(authenticationOptions);
 
@@ -109,7 +111,6 @@ export const getPasskeyJwt = async (deviceId: string): Promise<PasskeyAuthResult
     challenge: authenticationOptions.options.challenge,
     rpId: authenticationOptions.options.rpId,
     userVerification: "preferred",
-    timeout: 60000,
     fallbackSupported: true,
     origin: "https://app.simplicity.kiwi",
     sameOriginWithAncestors: true,
@@ -120,7 +121,7 @@ export const getPasskeyJwt = async (deviceId: string): Promise<PasskeyAuthResult
     simplicityTenantId,
     challengeId,
     assertion,
-    deviceId
+    deviceId,
   );
   console.log(authResult);
 
