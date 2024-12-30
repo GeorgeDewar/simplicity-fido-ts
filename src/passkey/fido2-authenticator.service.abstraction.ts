@@ -12,12 +12,6 @@ export class Fido2AuthenticatorError extends Error {
   }
 }
 
-export interface PublicKeyCredentialDescriptor {
-  id: Uint8Array;
-  transports?: ('ble' | 'hybrid' | 'internal' | 'nfc' | 'usb')[];
-  type: 'public-key';
-}
-
 /**
  * Parameters for {@link Fido2AuthenticatorService.getAssertion}
 
@@ -29,7 +23,6 @@ export interface Fido2AuthenticatorGetAssertionParams {
   rpId: string;
   /** The hash of the serialized client data, provided by the client. */
   hash: BufferSource;
-  allowCredentialDescriptorList: PublicKeyCredentialDescriptor[];
 }
 
 export interface Fido2AuthenticatorGetAssertionResult {

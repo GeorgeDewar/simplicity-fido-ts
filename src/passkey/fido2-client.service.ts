@@ -4,7 +4,6 @@ import {
   Fido2AuthenticatorErrorCode,
   Fido2AuthenticatorGetAssertionParams,
   Fido2AuthenticatorGetAssertionResult,
-  PublicKeyCredentialDescriptor,
 } from './fido2-authenticator.service.abstraction';
 import { AssertCredentialParams, AssertCredentialResult } from './fido2-client.service.abstraction';
 import { Fido2Utils } from './fido2-utils';
@@ -77,14 +76,8 @@ function mapToGetAssertionParams({
   params: AssertCredentialParams;
   clientDataHash: ArrayBuffer;
 }): Fido2AuthenticatorGetAssertionParams {
-  const allowCredentialDescriptorList: PublicKeyCredentialDescriptor[] = params.allowedCredentialIds.map((id) => ({
-    id: Fido2Utils.stringToBuffer(id),
-    type: 'public-key',
-  }));
-
   return {
     rpId: params.rpId,
     hash: clientDataHash,
-    allowCredentialDescriptorList,
   };
 }

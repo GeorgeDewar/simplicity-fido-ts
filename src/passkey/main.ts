@@ -99,7 +99,6 @@ export const getPasskeyJwt = async (deviceId: string): Promise<PasskeyAuthResult
   console.log(authenticationOptions);
 
   const assertion = await assertCredential({
-    allowedCredentialIds: [], // any ID is OK
     challenge: authenticationOptions.options.challenge,
     rpId: authenticationOptions.options.rpId,
     origin: 'https://app.simplicity.kiwi',
