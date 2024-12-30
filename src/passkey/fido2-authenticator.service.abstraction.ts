@@ -32,9 +32,6 @@ export interface Fido2AuthenticatorGetAssertionParams {
   allowCredentialDescriptorList: PublicKeyCredentialDescriptor[];
   /** The effective user verification requirement for assertion, a Boolean value provided by the client. */
   requireUserVerification: boolean;
-  /** The constant Boolean value true. It is included here as a pseudo-parameter to simplify applying this abstract authenticator model to implementations that may wish to make a test of user presence optional although WebAuthn does not. */
-  // requireUserPresence: boolean; // Always required
-  extensions: unknown;
 }
 
 export interface Fido2AuthenticatorGetAssertionResult {

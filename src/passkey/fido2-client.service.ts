@@ -92,6 +92,5 @@ function mapToGetAssertionParams({
     requireUserVerification,
     hash: clientDataHash,
     allowCredentialDescriptorList,
-    extensions: {},
   };
 }
