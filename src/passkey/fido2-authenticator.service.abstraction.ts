@@ -35,8 +35,6 @@ export interface Fido2AuthenticatorGetAssertionParams {
   /** The constant Boolean value true. It is included here as a pseudo-parameter to simplify applying this abstract authenticator model to implementations that may wish to make a test of user presence optional although WebAuthn does not. */
   // requireUserPresence: boolean; // Always required
   extensions: unknown;
-  /** Forwarded to user interface */
-  fallbackSupported: boolean;
 }
 
 export interface Fido2AuthenticatorGetAssertionResult {

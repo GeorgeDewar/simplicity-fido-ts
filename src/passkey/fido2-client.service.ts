@@ -93,6 +93,5 @@ function mapToGetAssertionParams({
     hash: clientDataHash,
     allowCredentialDescriptorList,
     extensions: {},
-    fallbackSupported: params.fallbackSupported,
   };
 }

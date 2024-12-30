@@ -103,7 +103,6 @@ export const getPasskeyJwt = async (deviceId: string): Promise<PasskeyAuthResult
     challenge: authenticationOptions.options.challenge,
     rpId: authenticationOptions.options.rpId,
     userVerification: 'preferred',
-    fallbackSupported: true,
     origin: 'https://app.simplicity.kiwi',
   });
   console.log(assertion);
