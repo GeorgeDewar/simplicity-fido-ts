@@ -1,9 +1,9 @@
 export enum Fido2AuthenticatorErrorCode {
-  Unknown = "UnknownError",
-  NotSupported = "NotSupportedError",
-  InvalidState = "InvalidStateError",
-  NotAllowed = "NotAllowedError",
-  Constraint = "ConstraintError",
+  Unknown = 'UnknownError',
+  NotSupported = 'NotSupportedError',
+  InvalidState = 'InvalidStateError',
+  NotAllowed = 'NotAllowedError',
+  Constraint = 'ConstraintError',
 }
 
 export class Fido2AuthenticatorError extends Error {
@@ -14,8 +14,8 @@ export class Fido2AuthenticatorError extends Error {
 
 export interface PublicKeyCredentialDescriptor {
   id: Uint8Array;
-  transports?: ("ble" | "hybrid" | "internal" | "nfc" | "usb")[];
-  type: "public-key";
+  transports?: ('ble' | 'hybrid' | 'internal' | 'nfc' | 'usb')[];
+  type: 'public-key';
 }
 
 /**
@@ -37,9 +37,6 @@ export interface Fido2AuthenticatorGetAssertionParams {
   extensions: unknown;
   /** Forwarded to user interface */
   fallbackSupported: boolean;
-
-  // Bypass the UI and assume that the user has already interacted with the authenticator
-  assumeUserPresence?: boolean;
 }
 
 export interface Fido2AuthenticatorGetAssertionResult {

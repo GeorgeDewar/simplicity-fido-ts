@@ -73,11 +73,9 @@ const generateAssertCredentialResult = (
 function mapToGetAssertionParams({
   params,
   clientDataHash,
-  assumeUserPresence,
 }: {
   params: AssertCredentialParams;
   clientDataHash: ArrayBuffer;
-  assumeUserPresence?: boolean;
 }): Fido2AuthenticatorGetAssertionParams {
   const allowCredentialDescriptorList: PublicKeyCredentialDescriptor[] = params.allowedCredentialIds.map((id) => ({
     id: Fido2Utils.stringToBuffer(id),
@@ -96,6 +94,5 @@ function mapToGetAssertionParams({
     allowCredentialDescriptorList,
     extensions: {},
     fallbackSupported: params.fallbackSupported,
-    assumeUserPresence,
   };
 }
