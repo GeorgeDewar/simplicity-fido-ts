@@ -4,8 +4,6 @@ import { p1363ToDer } from './ecdsa-utils';
 import { Fido2Utils } from './fido2-utils';
 import { Fido2Credential } from './types';
 import {
-  Fido2AuthenticatorError,
-  Fido2AuthenticatorErrorCode,
   Fido2AuthenticatorGetAssertionParams,
   Fido2AuthenticatorGetAssertionResult,
 } from './fido2-authenticator.service.abstraction';
@@ -17,38 +15,29 @@ const KeyUsages: KeyUsage[] = ['sign'];
 export const getAssertion = async (
   params: Fido2AuthenticatorGetAssertionParams,
 ): Promise<Fido2AuthenticatorGetAssertionResult> => {
-  try {
-    const selectedFido2Credential = creds;
+  const selectedFido2Credential = creds;
 
-    try {
-      const selectedCredentialId = selectedFido2Credential.credentialId;
+  const selectedCredentialId = selectedFido2Credential.credentialId;
 
-      const authenticatorData = await generateAuthData({
-        rpId: selectedFido2Credential.rpId,
-        credentialId: parseCredentialId(selectedCredentialId)!,
-      });
+  const authenticatorData = await generateAuthData({
+    rpId: selectedFido2Credential.rpId,
+    credentialId: parseCredentialId(selectedCredentialId)!,
+  });
 
-      const signature = await generateSignature({
-        authData: authenticatorData,
-        clientDataHash: params.hash,
-        privateKey: await getPrivateKeyFromFido2Credential(selectedFido2Credential),
-      });
+  const signature = await generateSignature({
+    authData: authenticatorData,
+    clientDataHash: params.hash,
+    privateKey: await getPrivateKeyFromFido2Credential(selectedFido2Credential),
+  });
 
-      return {
-        authenticatorData,
-        selectedCredential: {
-          id: parseCredentialId(selectedCredentialId)!,
-          userHandle: Fido2Utils.stringToBuffer(selectedFido2Credential.userHandle),
-        },
-        signature,
-      };
-    } catch (error) {
-      logger.error(`[Fido2Authenticator] Aborting because of unknown error when asserting credential: ${error}`);
-      throw new Fido2AuthenticatorError(Fido2AuthenticatorErrorCode.Unknown);
-    }
-  } finally {
-    // userInterfaceSession.close();
-  }
+  return {
+    authenticatorData,
+    selectedCredential: {
+      id: parseCredentialId(selectedCredentialId)!,
+      userHandle: Fido2Utils.stringToBuffer(selectedFido2Credential.userHandle),
+    },
+    signature,
+  };
 };
 
 async function getPrivateKeyFromFido2Credential(fido2Credential: Fido2Credential): Promise<CryptoKey> {

@@ -1,7 +1,5 @@
 import { getAssertion } from './fido2-authenticator.service';
 import {
-  Fido2AuthenticatorError,
-  Fido2AuthenticatorErrorCode,
   Fido2AuthenticatorGetAssertionParams,
   Fido2AuthenticatorGetAssertionResult,
 } from './fido2-authenticator.service.abstraction';
@@ -35,21 +33,9 @@ export const assertCredential = async (params: AssertCredentialParams): Promise<
     clientDataHash,
   });
 
-  let getAssertionResult;
-  try {
-    getAssertionResult = await getAssertion(getAssertionParams);
-  } catch (error) {
-    if (error instanceof Fido2AuthenticatorError && error.errorCode === Fido2AuthenticatorErrorCode.InvalidState) {
-      logger.warn(`[Fido2Client] Unknown error: ${error}`);
-      throw new DOMException('Unknown error occured.', 'InvalidStateError');
-    }
-
-    logger.info(`[Fido2Client] Aborted by user: ${error}`);
-    throw new DOMException('The operation either timed out or was not allowed.', 'NotAllowedError');
-  }
+  const getAssertionResult = await getAssertion(getAssertionParams);
 
   const result = generateAssertCredentialResult(getAssertionResult, clientDataJSONBytes);
-  //logger.debug(`[Fido2Client] assertCredential result: ${JSON.stringify(result)}`);
   return result;
 };
 
