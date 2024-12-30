@@ -1,7 +1,4 @@
-// FIXME: Update this file to be type safe and remove this and next line
-// @ts-strict-ignore
-export const UserRequestedFallbackAbortReason = 'UserRequestedFallback';
-
+// Unused
 export type UserVerification = 'discouraged' | 'preferred' | 'required';
 
 /**
@@ -12,7 +9,6 @@ export interface AssertCredentialParams {
   rpId: string;
   origin: string;
   challenge: string;
-  userVerification?: UserVerification;
   mediation?: 'silent' | 'optional' | 'required' | 'conditional';
 }
 

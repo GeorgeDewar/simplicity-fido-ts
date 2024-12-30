@@ -26,8 +26,6 @@ export const getAssertion = async (
       const authenticatorData = await generateAuthData({
         rpId: selectedFido2Credential.rpId,
         credentialId: parseCredentialId(selectedCredentialId)!,
-        userPresence: true,
-        userVerification: true,
       });
 
       const signature = await generateSignature({
@@ -70,8 +68,6 @@ async function getPrivateKeyFromFido2Credential(fido2Credential: Fido2Credential
 interface AuthDataParams {
   rpId: string;
   credentialId: BufferSource;
-  userPresence: boolean;
-  userVerification: boolean;
 }
 
 async function generateAuthData(params: AuthDataParams) {
@@ -87,8 +83,8 @@ async function generateAuthData(params: AuthDataParams) {
     attestationData: false,
     backupEligibility: true,
     backupState: true, // Credentials are always synced
-    userVerification: params.userVerification,
-    userPresence: params.userPresence,
+    userVerification: true, // Pretend user verification was completed
+    userPresence: true, // Pretend user presence was confirmed
   });
   authData.push(flags);
 

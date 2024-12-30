@@ -82,14 +82,8 @@ function mapToGetAssertionParams({
     type: 'public-key',
   }));
 
-  const requireUserVerification =
-    params.userVerification === 'required' ||
-    params.userVerification === 'preferred' ||
-    params.userVerification === undefined;
-
   return {
     rpId: params.rpId,
-    requireUserVerification,
     hash: clientDataHash,
     allowCredentialDescriptorList,
   };

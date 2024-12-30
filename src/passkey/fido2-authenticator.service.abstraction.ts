@@ -30,8 +30,6 @@ export interface Fido2AuthenticatorGetAssertionParams {
   /** The hash of the serialized client data, provided by the client. */
   hash: BufferSource;
   allowCredentialDescriptorList: PublicKeyCredentialDescriptor[];
-  /** The effective user verification requirement for assertion, a Boolean value provided by the client. */
-  requireUserVerification: boolean;
 }
 
 export interface Fido2AuthenticatorGetAssertionResult {
