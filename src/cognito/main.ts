@@ -1,26 +1,26 @@
-import { creds } from "../creds";
-import { getPasskeyJwt } from "../passkey/main";
+import { creds } from '../creds';
+import { getPasskeyJwt } from '../passkey/main';
 
-const baseUrl = "https://cognito-idp.ap-southeast-2.amazonaws.com/";
-const simplicityClientId = "kvoiu7unft0c8hqqsa6hkmeu5";
+const baseUrl = 'https://cognito-idp.ap-southeast-2.amazonaws.com/';
+const simplicityClientId = 'kvoiu7unft0c8hqqsa6hkmeu5';
 
 const initiateAuth = async (deviceId: string, username: string) => {
   const response = await fetch(baseUrl, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/x-amz-json-1.1",
-      "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth",
-      "X-Amz-User-Agent": "aws-amplify/6.4.2 auth/4 framework/1",
+      'Content-Type': 'application/x-amz-json-1.1',
+      'X-Amz-Target': 'AWSCognitoIdentityProviderService.InitiateAuth',
+      'X-Amz-User-Agent': 'aws-amplify/6.4.2 auth/4 framework/1',
     },
     body: JSON.stringify({
-      AuthFlow: "CUSTOM_AUTH",
+      AuthFlow: 'CUSTOM_AUTH',
       AuthParameters: {
         USERNAME: username,
       },
       ClientMetadata: {
         anonymousId: deviceId,
         userAgent:
-          "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+          'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
       },
       ClientId: simplicityClientId,
     }),
@@ -33,20 +33,15 @@ const initiateAuth = async (deviceId: string, username: string) => {
   return json;
 };
 
-const respondToChallenge = async (
-  username: string,
-  session: string,
-  answer: string,
-): Promise<any> => {
+const respondToChallenge = async (username: string, session: string, answer: string): Promise<any> => {
   const response = await fetch(baseUrl, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/x-amz-json-1.1",
-      "X-Amz-Target":
-        "AWSCognitoIdentityProviderService.RespondToAuthChallenge",
+      'Content-Type': 'application/x-amz-json-1.1',
+      'X-Amz-Target': 'AWSCognitoIdentityProviderService.RespondToAuthChallenge',
     },
     body: JSON.stringify({
-      ChallengeName: "CUSTOM_CHALLENGE",
+      ChallengeName: 'CUSTOM_CHALLENGE',
       ChallengeResponses: {
         USERNAME: username,
         ANSWER: answer,
@@ -90,11 +85,7 @@ export const cognitoLogin = async (deviceId: string) => {
 
   // Respond to challenge with JWT from Passkey authentication
 
-  const respondToChallengeResult = await respondToChallenge(
-    username,
-    session,
-    passkeyResult.accessToken,
-  );
+  const respondToChallengeResult = await respondToChallenge(username, session, passkeyResult.accessToken);
   console.log(respondToChallengeResult);
 
   return response;

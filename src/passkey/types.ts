@@ -32,11 +32,11 @@ export interface Fido2AuthenticatorGetAssertionResult {
 }
 
 export enum Fido2AuthenticatorErrorCode {
-  Unknown = "UnknownError",
-  NotSupported = "NotSupportedError",
-  InvalidState = "InvalidStateError",
-  NotAllowed = "NotAllowedError",
-  Constraint = "ConstraintError",
+  Unknown = 'UnknownError',
+  NotSupported = 'NotSupportedError',
+  InvalidState = 'InvalidStateError',
+  NotAllowed = 'NotAllowedError',
+  Constraint = 'ConstraintError',
 }
 
 export class Fido2AuthenticatorError extends Error {

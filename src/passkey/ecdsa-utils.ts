@@ -53,11 +53,7 @@ const MAX_OCTET = 0x80,
   ENCODED_TAG_INT = TAG_INT | (CLASS_UNIVERSAL << 6);
 
 // Counts leading zeros and determines if there's a need for 0x00 padding
-function countPadding(
-  buf: Uint8Array,
-  start: number,
-  end: number,
-): { padding: number; needs0x00: boolean } {
+function countPadding(buf: Uint8Array, start: number, end: number): { padding: number; needs0x00: boolean } {
   let padding = 0;
   while (start + padding < end && buf[start + padding] === 0) {
     padding++;
@@ -68,28 +64,18 @@ function countPadding(
 }
 
 export function p1363ToDer(signature: Uint8Array) {
-  const alg = "ES256";
+  const alg = 'ES256';
   const paramBytes = getParamBytesForAlg(alg);
 
   const signatureBytes = signature.length;
   if (signatureBytes !== paramBytes * 2) {
     throw new TypeError(
-      '"' +
-        alg +
-        '" signatures must be "' +
-        paramBytes * 2 +
-        '" bytes, saw "' +
-        signatureBytes +
-        '"',
+      '"' + alg + '" signatures must be "' + paramBytes * 2 + '" bytes, saw "' + signatureBytes + '"',
     );
   }
 
   const { padding: rPadding, needs0x00: rNeeds0x00 } = countPadding(signature, 0, paramBytes);
-  const { padding: sPadding, needs0x00: sNeeds0x00 } = countPadding(
-    signature,
-    paramBytes,
-    signature.length,
-  );
+  const { padding: sPadding, needs0x00: sNeeds0x00 } = countPadding(signature, paramBytes, signature.length);
 
   const rActualLength = paramBytes - rPadding;
   const sActualLength = paramBytes - sPadding;

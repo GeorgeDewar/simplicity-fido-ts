@@ -1,5 +1,5 @@
-import { v4 as uuidv4 } from "uuid";
-import { cognitoLogin } from "./cognito/main";
+import { v4 as uuidv4 } from 'uuid';
+import { cognitoLogin } from './cognito/main';
 
 const simplicityLogin = async () => {
   const deviceId = uuidv4();

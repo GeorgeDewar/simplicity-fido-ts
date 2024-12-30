@@ -1,8 +1,8 @@
 // FIXME: Update this file to be type safe and remove this and next line
 // @ts-strict-ignore
-export const UserRequestedFallbackAbortReason = "UserRequestedFallback";
+export const UserRequestedFallbackAbortReason = 'UserRequestedFallback';
 
-export type UserVerification = "discouraged" | "preferred" | "required";
+export type UserVerification = 'discouraged' | 'preferred' | 'required';
 
 /**
  * Parameters for creating a new credential.
@@ -16,12 +16,12 @@ export interface CreateCredentialParams {
    * */
   sameOriginWithAncestors: boolean;
   /** The Relying Party's preference for attestation conveyance */
-  attestation?: "direct" | "enterprise" | "indirect" | "none";
+  attestation?: 'direct' | 'enterprise' | 'indirect' | 'none';
   /** The Relying Party's requirements of the authenticator used in the creation of the credential. */
   authenticatorSelection?: {
     // authenticatorAttachment?: AuthenticatorAttachment; // not used
     requireResidentKey?: boolean;
-    residentKey?: "discouraged" | "preferred" | "required";
+    residentKey?: 'discouraged' | 'preferred' | 'required';
     userVerification?: UserVerification;
   };
   /** Challenge intended to be used for generating the newly created credential's attestation object. */
@@ -33,8 +33,8 @@ export interface CreateCredentialParams {
    * */
   excludeCredentials?: {
     id: string; // b64 encoded
-    transports?: ("ble" | "hybrid" | "internal" | "nfc" | "usb")[];
-    type: "public-key";
+    transports?: ('ble' | 'hybrid' | 'internal' | 'nfc' | 'usb')[];
+    type: 'public-key';
   }[];
   /**
    * This member contains additional parameters requesting additional processing by the client and authenticator.
@@ -98,7 +98,7 @@ export interface AssertCredentialParams {
   origin: string;
   challenge: string;
   userVerification?: UserVerification;
-  mediation?: "silent" | "optional" | "required" | "conditional";
+  mediation?: 'silent' | 'optional' | 'required' | 'conditional';
   fallbackSupported: boolean;
 }
 
@@ -123,7 +123,7 @@ export interface AssertCredentialResult {
  */
 export interface PublicKeyCredentialParam {
   alg: number;
-  type: "public-key";
+  type: 'public-key';
 }
 
 /**
@@ -132,6 +132,6 @@ export interface PublicKeyCredentialParam {
 export class FallbackRequestedError extends Error {
   readonly fallbackRequested = true;
   constructor() {
-    super("FallbackRequested");
+    super('FallbackRequested');
   }
 }

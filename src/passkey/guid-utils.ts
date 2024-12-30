@@ -13,7 +13,7 @@ const byteToHex = Array.from({ length: 256 }, (_, i) => (i + 0x100).toString(16)
 /** Convert standard format (XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX) UUID to raw 16 byte array. */
 export function guidToRawFormat(guid: string) {
   if (!isValidGuid(guid)) {
-    throw TypeError("GUID parameter is invalid");
+    throw TypeError('GUID parameter is invalid');
   }
 
   let v;
@@ -51,10 +51,7 @@ export function guidToRawFormat(guid: string) {
 
 /** Convert raw 16 byte array to standard format (XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX) UUID. */
 export function guidToStandardFormat(bufferSource: BufferSource) {
-  const arr =
-    bufferSource instanceof ArrayBuffer
-      ? new Uint8Array(bufferSource)
-      : new Uint8Array(bufferSource.buffer);
+  const arr = bufferSource instanceof ArrayBuffer ? new Uint8Array(bufferSource) : new Uint8Array(bufferSource.buffer);
   // Note: Be careful editing this code!  It's been tuned for performance
   // and works in ways you may not expect. See https://github.com/uuidjs/uuid/pull/434
   const guid = (
@@ -62,16 +59,16 @@ export function guidToStandardFormat(bufferSource: BufferSource) {
     byteToHex[arr[1]] +
     byteToHex[arr[2]] +
     byteToHex[arr[3]] +
-    "-" +
+    '-' +
     byteToHex[arr[4]] +
     byteToHex[arr[5]] +
-    "-" +
+    '-' +
     byteToHex[arr[6]] +
     byteToHex[arr[7]] +
-    "-" +
+    '-' +
     byteToHex[arr[8]] +
     byteToHex[arr[9]] +
-    "-" +
+    '-' +
     byteToHex[arr[10]] +
     byteToHex[arr[11]] +
     byteToHex[arr[12]] +
@@ -83,7 +80,7 @@ export function guidToStandardFormat(bufferSource: BufferSource) {
   // Consistency check for valid UUID.  If this throws, it's likely due to one
   // or more input array values not mapping to a hex octet (leading to "undefined" in the uuid)
   if (!isValidGuid(guid)) {
-    throw TypeError("Converted GUID is invalid");
+    throw TypeError('Converted GUID is invalid');
   }
 
   return guid;
@@ -91,5 +88,5 @@ export function guidToStandardFormat(bufferSource: BufferSource) {
 
 // Perform format validation, without enforcing any variant restrictions as Utils.isGuid does
 function isValidGuid(guid: string): boolean {
-  return RegExp(/^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/, "i").test(guid);
+  return RegExp(/^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/, 'i').test(guid);
 }

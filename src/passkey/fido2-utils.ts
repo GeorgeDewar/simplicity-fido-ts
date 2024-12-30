@@ -3,9 +3,9 @@
 export class Fido2Utils {
   static bufferToString(bufferSource: BufferSource): string {
     return Fido2Utils.fromBufferToB64(Fido2Utils.bufferSourceToUint8Array(bufferSource))!
-      .replace(/\+/g, "-")
-      .replace(/\//g, "_")
-      .replace(/=/g, "");
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/=/g, '');
   }
 
   static stringToBuffer(str: string): Uint8Array {
@@ -26,7 +26,7 @@ export class Fido2Utils {
   }
 
   static fromB64toUrlB64(b64Str: string) {
-    return b64Str.replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
+    return b64Str.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
   }
 
   static fromBufferToB64(buffer: ArrayBuffer): string | null {
@@ -34,7 +34,7 @@ export class Fido2Utils {
       return null;
     }
 
-    let binary = "";
+    let binary = '';
     const bytes = new Uint8Array(buffer);
     for (let i = 0; i < bytes.byteLength; i++) {
       binary += String.fromCharCode(bytes[i]);
@@ -56,18 +56,18 @@ export class Fido2Utils {
   }
 
   static fromUrlB64ToB64(urlB64Str: string): string {
-    let output = urlB64Str.replace(/-/g, "+").replace(/_/g, "/");
+    let output = urlB64Str.replace(/-/g, '+').replace(/_/g, '/');
     switch (output.length % 4) {
       case 0:
         break;
       case 2:
-        output += "==";
+        output += '==';
         break;
       case 3:
-        output += "=";
+        output += '=';
         break;
       default:
-        throw new Error("Illegal base64url string!");
+        throw new Error('Illegal base64url string!');
     }
 
     return output;

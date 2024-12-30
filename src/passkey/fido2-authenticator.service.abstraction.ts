@@ -1,15 +1,14 @@
-
 export enum Fido2AlgorithmIdentifier {
   ES256 = -7,
   RS256 = -257,
 }
 
 export enum Fido2AuthenticatorErrorCode {
-  Unknown = "UnknownError",
-  NotSupported = "NotSupportedError",
-  InvalidState = "InvalidStateError",
-  NotAllowed = "NotAllowedError",
-  Constraint = "ConstraintError",
+  Unknown = 'UnknownError',
+  NotSupported = 'NotSupportedError',
+  InvalidState = 'InvalidStateError',
+  NotAllowed = 'NotAllowedError',
+  Constraint = 'ConstraintError',
 }
 
 export class Fido2AuthenticatorError extends Error {
@@ -20,8 +19,8 @@ export class Fido2AuthenticatorError extends Error {
 
 export interface PublicKeyCredentialDescriptor {
   id: Uint8Array;
-  transports?: ("ble" | "hybrid" | "internal" | "nfc" | "usb")[];
-  type: "public-key";
+  transports?: ('ble' | 'hybrid' | 'internal' | 'nfc' | 'usb')[];
+  type: 'public-key';
 }
 
 /**
@@ -48,7 +47,7 @@ export interface Fido2AuthenticatorMakeCredentialsParams {
   /** A sequence of pairs of PublicKeyCredentialType and public key algorithms (COSEAlgorithmIdentifier) requested by the Relying Party. This sequence is ordered from most preferred to least preferred. The authenticator makes a best-effort to create the most preferred credential that it can. */
   credTypesAndPubKeyAlgs: {
     alg: number;
-    type: "public-key"; // not used
+    type: 'public-key'; // not used
   }[];
   /** An OPTIONAL list of PublicKeyCredentialDescriptor objects provided by the Relying Party with the intention that, if any of these are known to the authenticator, it SHOULD NOT create a new credential. excludeCredentialDescriptorList contains a list of known credentials. */
   excludeCredentialDescriptorList?: PublicKeyCredentialDescriptor[];
