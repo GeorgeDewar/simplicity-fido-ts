@@ -113,7 +113,6 @@ export const getPasskeyJwt = async (
     userVerification: "preferred",
     fallbackSupported: true,
     origin: "https://app.simplicity.kiwi",
-    sameOriginWithAncestors: true,
   });
   console.log(assertion);
 
